@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}-deployment
+  labels:                     # Labels that will be applied to this resource
+    app: {{ .Values.app.name }}
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:                   # Template for creating the pods in this deployment
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: {{ .Values.app.name }}
+    spec:
+      containers:
+        - image: challenger:0.2
+          name: challenger
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: {{.Values.app.containerPort }} # The port that the container exposes
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health/liveness
+            initialDelaySeconds: 30
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health/readiness
+            initialDelaySeconds: 30
+            periodSeconds: 3
+          resources:
+            limits:
+              cpu: 0.5
+              memory: "400Mi"
+          env:                  # Environment variables supplied to the Pod
+            - name: SPRING_DATASOURCE_USERNAME # Name of the environment variable
+              valueFrom:          # Get the value of environment variable from kubernetes secrets
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: password
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: url
