@@ -32,7 +32,7 @@ jobs:
       name: Check out code
 
     - name: Validate deploy jar is present
-      run: ls ./build/libs
+      run: ls
 
     - uses: mr-smithers-excellent/docker-build-push@v4
       name: Build & push Docker image
