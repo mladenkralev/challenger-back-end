@@ -26,12 +26,8 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build -i
-    - uses: actions/checkout@v2
-      name: Check out code
-
     - name: Validate deploy jar is present
       run: ls
-
     - uses: mr-smithers-excellent/docker-build-push@v4
       name: Build & push Docker image
       with:
