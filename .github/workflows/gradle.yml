@@ -28,9 +28,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build -i
 
-    - uses: actions/checkout@v2
-      name: Check out code
-
     - name: Validate deploy jar is present
       run: ls
 
