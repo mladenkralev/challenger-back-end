@@ -15,7 +15,7 @@ spec:
         app: {{ .Values.app.name }}
     spec:
       containers:
-        - image: challenger:0.2
+        - image: mladenkralev/challenger-repository:latest
           name: challenger
           imagePullPolicy: IfNotPresent
           ports:
