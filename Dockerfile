@@ -1,4 +1,4 @@
-FROM arm64v8/eclipse-temurin:11.0.12_7-jdk-focal
+FROM arm32v7/adoptopenjdk:11-jdk
 
 EXPOSE 8080
 
