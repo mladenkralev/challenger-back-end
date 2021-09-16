@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:aarch64-ubuntu-jdk-11.0.11_9
+FROM arm64v8/eclipse-temurin:11.0.12_7-jdk-focal
 
 EXPOSE 8080
 
