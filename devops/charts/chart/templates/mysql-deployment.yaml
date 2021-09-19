@@ -19,6 +19,7 @@ spec:
     spec:
       containers:
         - image: mysql:5.6
+          imagePullPolicy: Always
           name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
@@ -51,3 +52,5 @@ spec:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: mysql-pv-claim
+      imagePullSecrets:
+        - name: regcred

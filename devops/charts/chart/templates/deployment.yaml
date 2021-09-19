@@ -35,7 +35,7 @@ spec:
             periodSeconds: 3
           resources:
             limits:
-              cpu: 0.5
+              cpu: "0.5"
               memory: "400Mi"
           env:                  # Environment variables supplied to the Pod
             - name: SPRING_DATASOURCE_USERNAME # Name of the environment variable
