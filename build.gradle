@@ -36,7 +36,8 @@ dependencies {
 
     implementation 'javax.xml.bind:jaxb-api'
 
-    implementation 'mysql:mysql-connector-java'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.4'
+
     compileOnly 'org.projectlombok:lombok'
 
     annotationProcessor 'org.projectlombok:lombok'
@@ -45,6 +46,7 @@ dependencies {
 
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation "org.testcontainers:mysql:1.16.0"
+
 }
 
 test {
