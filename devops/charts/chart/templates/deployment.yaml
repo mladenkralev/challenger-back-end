@@ -35,8 +35,8 @@ spec:
             periodSeconds: 3
           resources:
             limits:
-              cpu: "0.5"
-              memory: "400Mi"
+              cpu: "1"
+              memory: "1024Mi"
           env:                  # Environment variables supplied to the Pod
             - name: SPRING_DATASOURCE_USERNAME # Name of the environment variable
               valueFrom:          # Get the value of environment variable from kubernetes secrets
