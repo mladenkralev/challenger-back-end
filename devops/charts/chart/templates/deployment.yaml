@@ -15,9 +15,9 @@ spec:
         app: {{ .Values.app.name }}
     spec:
       containers:
-        - image: localhost:5000/test:latest
+        - image: mladenkralev/challenger-repository:latest
           name: challenger
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: {{.Values.app.containerPort }} # The port that the container exposes
