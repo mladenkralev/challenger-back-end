@@ -1,35 +1,37 @@
 package com.challenger.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.testcontainers.containers.MySQLContainer;
-
+import org.testcontainers.containers.MariaDBContainer;
 
 import javax.sql.DataSource;
+
 
 @TestConfiguration
 public class TestMySQLContainer {
 
+    Logger logger = LoggerFactory.getLogger(TestMySQLContainer.class);
+
     @Bean
-    public MySQLContainer mysqlContainer() {
-        final MySQLContainer mySQLContainer = (MySQLContainer) (new MySQLContainer("mysql:8.0")
-                .withUsername("root")
-                .withPassword("password")
-                .withDatabaseName("db")
-                .withExposedPorts(3306)
-                .withReuse(true));
-        mySQLContainer.start();
-        return mySQLContainer;
+    public MariaDBContainer mariaDbContainer() {
+        final MariaDBContainer mariaDB = new MariaDBContainer("mariadb:10.6.4");
+        mariaDB.start();
+        return mariaDB;
     }
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl(mysqlContainer().getJdbcUrl());
-        dataSource.setUsername(mysqlContainer().getUsername());
-        dataSource.setPassword(mysqlContainer().getPassword());
-        dataSource.setDriverClassName(mysqlContainer().getDriverClassName());
+        dataSource.setUrl(mariaDbContainer().getJdbcUrl());
+        String dbUsername = mariaDbContainer().getUsername();
+        String dbPassword = mariaDbContainer().getPassword();
+        logger.debug("Test database username: {} and password {}", dbUsername, dbPassword);
+        dataSource.setUsername(dbUsername);
+        dataSource.setPassword(dbPassword);
+        dataSource.setDriverClassName(mariaDbContainer().getDriverClassName());
         // Additional parameters configuration omitted
         return dataSource;
     }

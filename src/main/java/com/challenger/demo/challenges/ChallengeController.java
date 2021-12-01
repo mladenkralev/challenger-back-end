@@ -2,10 +2,12 @@ package com.challenger.demo.challenges;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,11 @@ public class ChallengeController {
     }
 
     @PostMapping("/challenges")
-    public Challenge createChallenge(@RequestBody Challenge challenge) {
+    public Challenge createChallenge(@Valid @RequestBody Challenge challenge, Errors errors) {
+        if(errors.hasErrors()) {
+            throw new IllegalArgumentException("Passed parameter challenge is not valid");
+        }
+
         return challengeService.addingChallenge(challenge);
     }
 

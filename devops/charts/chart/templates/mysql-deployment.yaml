@@ -18,7 +18,7 @@ spec:
         tier: mysql
     spec:
       containers:
-        - image: arm64v8/mariadb:10.6.4-focal
+        - image: arm64v8/mariadb:latest
           imagePullPolicy: Always
           name: mysql
           env:

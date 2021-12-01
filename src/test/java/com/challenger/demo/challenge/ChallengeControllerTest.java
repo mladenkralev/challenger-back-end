@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -29,10 +31,14 @@ public class ChallengeControllerTest {
     @Autowired
     private ChallengeService service;
 
+    @MockBean
+    Errors errors;
+
     @Test
     public void testCreateChallenge() throws Exception {
         Challenge challenge = ChallengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
-        controller.createChallenge(challenge);
+
+        controller.createChallenge(challenge, errors);
 
         List<Challenge> allChallenges = service.getChallenges();
         Assertions.assertThat(allChallenges.size()).isEqualTo(1);

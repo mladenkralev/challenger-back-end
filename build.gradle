@@ -45,7 +45,7 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 
     testImplementation 'org.testcontainers:junit-jupiter'
-    testImplementation "org.testcontainers:mysql:1.16.0"
+    testImplementation "org.testcontainers:mariadb:1.16.0"
 
 }
 
