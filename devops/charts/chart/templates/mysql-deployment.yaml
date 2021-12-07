@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - image: arm64v8/mariadb:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD

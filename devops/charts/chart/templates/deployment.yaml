@@ -53,5 +53,5 @@ spec:
                 secretKeyRef:
                   name: mysql-secrets
                   key: url
-{{/*      imagePullSecrets:*/}}
-{{/*        - name: regcred*/}}
+      imagePullSecrets:
+        - name: regcred
