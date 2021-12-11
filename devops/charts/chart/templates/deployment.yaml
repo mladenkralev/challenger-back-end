@@ -4,6 +4,8 @@ metadata:
   name: {{ .Values.app.name }}-deployment
   labels:                     # Labels that will be applied to this resource
     app: {{ .Values.app.name }}
+  annotations:
+    timestamp: {{ now | date "20060102150405" }}
 spec:
   replicas: {{ .Values.app.replicas }}
   selector:
