@@ -1,1 +1,1 @@
-INSERT INTO `users` VALUES (0,_binary '','mladenkralev@gmail.com','$2a$12$0bjh8IWJzpxP.iBBqVvH8.FAKv4GDfFbzX8Qc7k2ma00uZ6vADRaG','ROLE_ADMIN','mladen');
+INSERT INTO `users` VALUES (0,true,'test@abv.bg','$2a$10$PdLu3gaQSeZNvTJtz5qdbOmsTrJQ4bTHIr40mNgc//Fa8OW7b2Vla','ROLE_ADMIN','mladen');

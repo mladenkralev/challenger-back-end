@@ -3,6 +3,7 @@ package com.challenger.demo.users;
 import com.challenger.demo.challenges.Challenge;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Table(name = "users")
 public class User {
