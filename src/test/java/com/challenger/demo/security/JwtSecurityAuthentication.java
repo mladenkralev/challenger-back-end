@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,22 +48,13 @@ public class JwtSecurityAuthentication {
         userRepository.saveAndFlush(user);
 
         AuthenticationRequest requestBody = new AuthenticationRequest(email, password);
-        Assertions.assertThrows(BadCredentialsException.class, () -> authenticationEndpoint.authenticate(requestBody));
+        ResponseEntity<?> authenticate = authenticationEndpoint.authenticate(requestBody);
+        Assertions.assertEquals(authenticate.getStatusCode(), HttpStatus.OK);
     }
 
     @Test
     @Transactional
-    public void testInvalidLogin() throws Exception {
-        String encodedPassword = passwordEncoder.encode("test");
-        User user = User.builder()
-                .id(0)
-                .username("test")
-                .password(encodedPassword)
-                .email("test@abv.bg")
-                .roles("ADMIN")
-                .active(true)
-                .build();
-        userRepository.saveAndFlush(user);
+    public void testInvalidLogin() {
         AuthenticationRequest requestBody = new AuthenticationRequest("test@abv.bg", "test");
         Assertions.assertThrows(BadCredentialsException.class, () -> authenticationEndpoint.authenticate(requestBody));
     }
