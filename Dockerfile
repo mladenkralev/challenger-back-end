@@ -5,4 +5,4 @@ EXPOSE 8080
 COPY ./build/libs/challenger-backend.jar /usr/app/
 WORKDIR /usr/app
 
-ENTRYPOINT ["java", "-jar", "challenger-backend.jar"]
+ENTRYPOINT ["java $JAVA_OPTS", "-jar", "challenger-backend.jar"]

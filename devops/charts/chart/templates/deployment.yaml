@@ -61,5 +61,7 @@ spec:
                 secretKeyRef:
                   name: mysql-secrets
                   key: url
+            - name: "JAVA_OPTS"
+              value: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
       imagePullSecrets:
         - name: regcred
