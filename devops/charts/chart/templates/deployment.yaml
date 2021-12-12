@@ -4,8 +4,7 @@ metadata:
   name: {{ .Values.app.name }}-deployment
   labels:                     # Labels that will be applied to this resource
     app: {{ .Values.app.name }}
-  annotations:
-    rollme: {{ randAlphaNum 5 | quote }}
+
 spec:
   replicas: {{ .Values.app.replicas }}
   strategy:
@@ -20,6 +19,8 @@ spec:
     metadata:
       labels:                 # Labels that will be applied to each Pod in this deployment
         app: {{ .Values.app.name }}
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
     spec:
       containers:
         - image: mladenkralev/challenger-repository:latest
