@@ -5,4 +5,4 @@ EXPOSE 8080
 COPY ./build/libs/challenger-backend.jar /usr/app/
 WORKDIR /usr/app
 
-ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-jar", "challenger-backend.jar"]
+ENTRYPOINT exec java $JAVA_OPTS -jar challenger-backend.jar --spring.profiles.active=$ENV_PROFILE
