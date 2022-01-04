@@ -34,13 +34,13 @@ spec:
               port: 8080
               path: /actuator/health/liveness
             initialDelaySeconds: 200
-            periodSeconds: 10
+            periodSeconds: 30
           readinessProbe:
             httpGet:
               port: 8080
               path: /actuator/health/readiness
             initialDelaySeconds: 200
-            periodSeconds: 10
+            periodSeconds: 30
           resources:
             limits:
               cpu: "1"
