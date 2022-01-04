@@ -61,5 +61,10 @@ spec:
                 secretKeyRef:
                   name: mysql-secrets
                   key: url
+            - name: JAVA_OPTS
+              value: "-Xms128M -Xmx768M"
+            - name: ENV_PROFILE
+              value: "prd"
+
       imagePullSecrets:
         - name: regcred
