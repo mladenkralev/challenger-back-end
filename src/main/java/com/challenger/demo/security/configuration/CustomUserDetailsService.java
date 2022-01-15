@@ -4,6 +4,7 @@ import com.challenger.demo.users.UserRepository;
 import com.challenger.demo.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Profile("prd")
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired

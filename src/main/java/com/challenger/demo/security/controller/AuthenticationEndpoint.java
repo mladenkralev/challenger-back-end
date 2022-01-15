@@ -20,30 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 public class AuthenticationEndpoint {
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtUtil jwtTokenUtil;
-
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+    public AuthenticationService authenticationService;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request) throws Exception {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-            );
-        } catch (BadCredentialsException e) {
-            throw new BadCredentialsException("Invalid credentials for email " + request.getEmail());
-        }
-
-        final CustomUserDetails userDetails = userDetailsService
-                .loadUserByUsername(request.getEmail());
-
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        AuthenticationResponse authenticationResponse = authenticationService.authenticate(request);
+        return ResponseEntity.ok(authenticationResponse);
     }
 }

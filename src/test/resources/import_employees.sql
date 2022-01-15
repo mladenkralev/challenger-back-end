@@ -1,0 +1,1 @@
+INSERT INTO `users` VALUES (0,true,'test@abv.bg','$2a$10$PdLu3gaQSeZNvTJtz5qdbOmsTrJQ4bTHIr40mNgc//Fa8OW7b2Vla','ROLE_ADMIN','test');

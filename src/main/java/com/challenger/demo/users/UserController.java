@@ -13,8 +13,11 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/users")
-    public ResponseEntity<?> getChallenge() {
+    public ResponseEntity<?> getUsers() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
 
@@ -25,7 +28,7 @@ public class UserController {
 
     @PostMapping("/users")
     public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+        return userService.addUser(user);
     }
 
     @DeleteMapping ("/users")

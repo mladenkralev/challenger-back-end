@@ -4,6 +4,7 @@ import com.challenger.demo.TestMySQLContainer;
 import com.challenger.demo.challenges.Challenge;
 import com.challenger.demo.challenges.ChallengeRepository;
 import com.challenger.demo.challenges.ChallengeService;
+import com.challenger.demo.util.ChallengeUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 @ActiveProfiles("integrationTest,default")

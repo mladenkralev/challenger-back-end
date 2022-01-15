@@ -7,6 +7,7 @@ import com.challenger.demo.security.controller.AuthenticationEndpoint;
 import com.challenger.demo.security.controller.AuthenticationRequest;
 import com.challenger.demo.users.User;
 import com.challenger.demo.users.UserRepository;
+import com.challenger.demo.util.UserUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import org.springframework.test.context.jdbc.Sql;
 import javax.transaction.Transactional;
 
 
-@ActiveProfiles("prd")
+@ActiveProfiles(profiles = { "prd" , "integrationTest"} )
 @Profile("integrationTest")
 @SpringBootTest(classes = TestMySQLContainer.class)
 public class JwtSecurityAuthentication {
@@ -32,7 +33,6 @@ public class JwtSecurityAuthentication {
 
     @Autowired
     UserRepository userRepository;
-
 
     @Autowired
     PasswordEncoder passwordEncoder;

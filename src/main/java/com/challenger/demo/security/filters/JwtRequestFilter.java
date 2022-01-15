@@ -5,6 +5,7 @@ import com.challenger.demo.security.configuration.CustomUserDetailsService;
 import com.challenger.demo.security.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Profile("prd")
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
