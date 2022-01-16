@@ -3,6 +3,7 @@ package com.challenger.demo.challenges;
 import com.challenger.demo.models.Badges;
 import com.challenger.demo.models.embeded.Occurrences;
 import com.challenger.demo.users.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -43,8 +44,10 @@ public class Challenge {
     public LocalDate endDate;
 
     @ManyToMany(mappedBy = "createdByUserChallenges")
+    @JsonIgnore
     Set<User> createdByUserChallenges;
 
     @ManyToMany(mappedBy = "assignedToUserChallenges")
+    @JsonIgnore
     Set<User> assignedToUserChallenges;
 }

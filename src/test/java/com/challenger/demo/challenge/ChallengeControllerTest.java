@@ -31,12 +31,15 @@ public class ChallengeControllerTest {
     @Autowired
     private ChallengeService service;
 
+    @Autowired
+    private ChallengeUtil challengeUtil;
+
     @MockBean
     Errors errors;
 
     @Test
     public void testCreateChallenge() throws Exception {
-        Challenge challenge = ChallengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        Challenge challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
 
         controller.createChallenge(challenge, errors);
 
@@ -47,7 +50,7 @@ public class ChallengeControllerTest {
 
     @Test
     public void testDeletingChallenge() throws Exception {
-        Challenge challenge = ChallengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        Challenge challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
         service.addingChallenge(challenge);
 
         List<Challenge> allChallenges = service.getChallenges();

@@ -25,6 +25,9 @@ public class ChallengeServiceTest {
     @Autowired
     ChallengeRepository repository;
 
+    @Autowired
+    private ChallengeUtil challengeUtil;
+
     @Test
     public void addingNullChallenge() {
         Assertions.assertThrows(NullPointerException.class, () -> challengeService.addingChallenge(null));
@@ -32,7 +35,7 @@ public class ChallengeServiceTest {
 
     @Test
     public void testAddingChallenge() {
-        Challenge challenge = ChallengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        Challenge challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
         challengeService.addingChallenge(challenge);
         Assertions.assertTrue(repository.findById(challenge.id).isPresent());
     }
@@ -40,7 +43,7 @@ public class ChallengeServiceTest {
 
     @Test
     void testDeletingChallenge() {
-        Challenge challenge = ChallengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        Challenge challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
         challengeService.addingChallenge(challenge);
         Assertions.assertTrue(repository.findById(challenge.id).isPresent(), String.format("Challenge %s was not created...", challenge));
 
@@ -50,13 +53,13 @@ public class ChallengeServiceTest {
 
     @Test
     void testUpdatingChallenge() {
-        Challenge challenge = ChallengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        Challenge challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
 
         challengeService.addingChallenge(challenge);
         Assertions.assertTrue(repository.findById(challenge.id).isPresent(), String.format("Challenge %s was not created...", challenge));
 
         String updatedTitle= "Updated title longer then 12 symbols";
-        Challenge updatedChallenge = ChallengeUtil.createDummyChallenge(updatedTitle);
+        Challenge updatedChallenge = challengeUtil.createDummyChallenge(updatedTitle);
         challengeService.updateChallenge(challenge, updatedChallenge);
 
         updatedChallenge = repository.getOne(challenge.id);

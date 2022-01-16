@@ -16,7 +16,6 @@ public class UserUtil {
         UserUtil.objectMapper = injectedObjectMapper;
     }
 
-
     public static User createDummyUser(String email, String password) {
         return User.builder()
                 .id(0)

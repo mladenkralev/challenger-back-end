@@ -11,21 +11,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationRequestUtil {
 
-    private static ObjectMapper objectMapper;
-
     @Autowired
-    public AuthenticationRequestUtil(ObjectMapper injectedObjectMapper) {
-        AuthenticationRequestUtil.objectMapper = injectedObjectMapper;
-    }
+    private ObjectMapper objectMapper;
 
-    public static AuthenticationRequest createDummyAuthenticationRequest(User user){
+    public AuthenticationRequest createDummyAuthenticationRequest(User user){
         return AuthenticationRequest.builder()
                 .email(user.email)
                 .password(user.password)
                 .build();
     }
 
-    public static String transformRequestToJsonString(AuthenticationRequest authenticationRequest) throws JsonProcessingException {
+    public String transformRequestToJsonString(AuthenticationRequest authenticationRequest) throws JsonProcessingException {
         return objectMapper.writeValueAsString(authenticationRequest);
     }
 
