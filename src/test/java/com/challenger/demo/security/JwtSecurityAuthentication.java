@@ -11,6 +11,7 @@ import com.challenger.demo.util.UserUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 
@@ -26,6 +27,7 @@ import javax.transaction.Transactional;
 
 @ActiveProfiles(profiles = { "prd" , "integrationTest"} )
 @Profile("integrationTest")
+@AutoConfigureMockMvc
 @SpringBootTest(classes = TestMySQLContainer.class)
 public class JwtSecurityAuthentication {
     @Autowired

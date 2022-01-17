@@ -8,14 +8,16 @@ import com.challenger.demo.util.ChallengeUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-@ActiveProfiles("integrationTest,default")
+@ActiveProfiles(profiles = {"integrationTest", "default"})
 @Profile("integrationTest")
+@AutoConfigureMockMvc
 @Transactional
 @SpringBootTest(classes = TestMySQLContainer.class)
 public class ChallengeServiceTest {
