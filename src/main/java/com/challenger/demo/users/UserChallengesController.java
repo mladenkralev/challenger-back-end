@@ -1,5 +1,6 @@
 package com.challenger.demo.users;
 
+import com.challenger.demo.users.models.UserDatabaseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,17 +15,6 @@ import java.util.Optional;
 @RequestMapping("/api/v1")
 public class UserChallengesController {
 
-    @Autowired
-    private UserRepository userRepository;
 
-    @GetMapping("/users/{user}/challenges")
-    public ResponseEntity getAssignedChallenges(@PathVariable String user) {
-        Objects.requireNonNull(user, "User path name should be available in the url.");
-        user = user.toLowerCase();
-
-        Optional<User> foundUser = userRepository.findUserByEmail(user);
-        return foundUser.map(tempUser -> ResponseEntity.ok().body(tempUser.getAssignedToUserChallenges()))
-                .orElse(ResponseEntity.notFound().build());
-    }
 
 }

@@ -1,10 +1,8 @@
 package com.challenger.demo.util;
 
 import com.challenger.demo.security.controller.AuthenticationRequest;
-import com.challenger.demo.users.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.challenger.demo.users.models.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,7 +28,7 @@ public class CommonRequestsService {
         return authHeader;
     }
 
-    public ResultActions executeAuthentication(User user) throws Exception {
+    public ResultActions executeAuthentication(UserRequest user) throws Exception {
         AuthenticationRequest authenticationRequest = authenticationRequestUtil.createDummyAuthenticationRequest(user);
         String jsonAuthUserBody = authenticationRequestUtil.transformRequestToJsonString(authenticationRequest);
 

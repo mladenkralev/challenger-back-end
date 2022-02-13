@@ -1,16 +1,12 @@
 package com.challenger.demo.challenges;
 
+import com.challenger.demo.challenges.models.ChallengeDatabaseModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -20,17 +16,17 @@ public class ChallengeController {
     private ChallengeService challengeService;
 
     @GetMapping("/challenges")
-    public List<Challenge> getChallenges() {
+    public List<ChallengeDatabaseModel> getChallenges() {
         return challengeService.getChallenges();
     }
 
     @GetMapping("/challenges/{id}")
-    public Challenge getChallenge(@RequestParam Long id) {
+    public ChallengeDatabaseModel getChallenge(@RequestParam Long id) {
         return challengeService.getChallenge(id);
     }
 
     @PostMapping("/challenges")
-    public Challenge createChallenge(@Valid @RequestBody Challenge challenge, Errors errors) {
+    public ChallengeDatabaseModel createChallenge(@Valid @RequestBody ChallengeDatabaseModel challenge, Errors errors) {
         if(errors.hasErrors()) {
             throw new IllegalArgumentException("Passed parameter challenge is not valid");
         }
@@ -39,7 +35,7 @@ public class ChallengeController {
     }
 
     @DeleteMapping ("/challenges")
-    public Challenge deleteChallenge(@RequestParam Long id) {
+    public ChallengeDatabaseModel deleteChallenge(@RequestParam Long id) {
         return challengeService.deleteChallenge(id);
     }
 

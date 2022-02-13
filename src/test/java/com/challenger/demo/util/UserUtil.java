@@ -1,6 +1,8 @@
 package com.challenger.demo.util;
 
-import com.challenger.demo.users.User;
+import com.challenger.demo.users.models.UserDatabaseModel;
+import com.challenger.demo.users.models.UserRequest;
+import com.challenger.demo.users.models.UserResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +18,15 @@ public class UserUtil {
         UserUtil.objectMapper = injectedObjectMapper;
     }
 
-    public static User createDummyUser(String email, String password) {
-        return User.builder()
-                .id(0)
+    public static UserRequest createDummyUser(String email, String password) {
+        return UserRequest.builder()
                 .username("test")
                 .email(email)
                 .password(password)
-                .roles("ADMIN_ROLE")
-                .active(true)
                 .build();
     }
 
-    public static User convertFromStringToJson(String jsonContent) throws JsonProcessingException {
-        return objectMapper.readValue(jsonContent, User.class);
+    public static UserResponse convertFromStringToJson(String jsonContent) throws JsonProcessingException {
+        return objectMapper.readValue(jsonContent, UserResponse.class);
     }
 }

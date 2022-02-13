@@ -1,13 +1,12 @@
-package com.challenger.demo.challenges;
+package com.challenger.demo.challenges.models;
 
 import com.challenger.demo.models.Badges;
 import com.challenger.demo.models.embeded.Occurrences;
-import com.challenger.demo.users.User;
+import com.challenger.demo.users.models.UserDatabaseModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -21,7 +20,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name= "challenges")
-public class Challenge {
+public class ChallengeDatabaseModel {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     public long id;
@@ -43,11 +42,11 @@ public class Challenge {
     public LocalDate startDate;
     public LocalDate endDate;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "createdByUserChallenges")
-    @JsonIgnore
-    Set<User> createdByUserChallenges;
+    Set<UserDatabaseModel> createdByUserChallenges;
 
-    @ManyToMany(mappedBy = "assignedToUserChallenges")
     @JsonIgnore
-    Set<User> assignedToUserChallenges;
+    @ManyToMany(mappedBy = "assignedToUserChallenges")
+    Set<UserDatabaseModel> assignedToUserChallenges;
 }

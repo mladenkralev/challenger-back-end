@@ -1,7 +1,7 @@
 package com.challenger.demo.challenge;
 
 import com.challenger.demo.TestMySQLContainer;
-import com.challenger.demo.challenges.Challenge;
+import com.challenger.demo.challenges.models.ChallengeDatabaseModel;
 import com.challenger.demo.challenges.ChallengeRepository;
 import com.challenger.demo.challenges.ChallengeService;
 import com.challenger.demo.util.ChallengeUtil;
@@ -37,7 +37,7 @@ public class ChallengeServiceTest {
 
     @Test
     public void testAddingChallenge() {
-        Challenge challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        ChallengeDatabaseModel challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
         challengeService.addingChallenge(challenge);
         Assertions.assertTrue(repository.findById(challenge.id).isPresent());
     }
@@ -45,7 +45,7 @@ public class ChallengeServiceTest {
 
     @Test
     void testDeletingChallenge() {
-        Challenge challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        ChallengeDatabaseModel challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
         challengeService.addingChallenge(challenge);
         Assertions.assertTrue(repository.findById(challenge.id).isPresent(), String.format("Challenge %s was not created...", challenge));
 
@@ -55,13 +55,13 @@ public class ChallengeServiceTest {
 
     @Test
     void testUpdatingChallenge() {
-        Challenge challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        ChallengeDatabaseModel challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
 
         challengeService.addingChallenge(challenge);
         Assertions.assertTrue(repository.findById(challenge.id).isPresent(), String.format("Challenge %s was not created...", challenge));
 
         String updatedTitle= "Updated title longer then 12 symbols";
-        Challenge updatedChallenge = challengeUtil.createDummyChallenge(updatedTitle);
+        ChallengeDatabaseModel updatedChallenge = challengeUtil.createDummyChallenge(updatedTitle);
         challengeService.updateChallenge(challenge, updatedChallenge);
 
         updatedChallenge = repository.getOne(challenge.id);

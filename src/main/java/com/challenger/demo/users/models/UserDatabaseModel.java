@@ -1,14 +1,16 @@
-package com.challenger.demo.users;
+package com.challenger.demo.users.models;
 
-import com.challenger.demo.challenges.Challenge;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.challenger.demo.challenges.models.ChallengeDatabaseModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,7 +19,7 @@ import java.util.Set;
 @Builder
 @Getter
 @Table(name = "users")
-public class User {
+public class UserDatabaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
@@ -25,9 +27,6 @@ public class User {
     public String username;
     public boolean active;
     public String roles;
-
-    // TODO should be a char array
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -35,12 +34,18 @@ public class User {
             name = "created_by_user_challenges",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "challenge_id"))
-    Set<Challenge> createdByUserChallenges;
+    Set<ChallengeDatabaseModel> createdByUserChallenges;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "assigned_to_user_challenges",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "challenge_id"))
-    Set<Challenge> assignedToUserChallenges;
+    Set<ChallengeDatabaseModel> assignedToUserChallenges;
+
+    public static UserDatabaseModel emptyEntity() {
+        return  UserDatabaseModel.builder().build();
+    }
+
+
 }

@@ -1,6 +1,6 @@
 package com.challenger.demo.security.configuration;
 
-import com.challenger.demo.users.User;
+import com.challenger.demo.users.models.UserDatabaseModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -17,7 +17,7 @@ public class CustomUserDetails implements ExtendedUserDetails {
     private final boolean active;
     private final List<GrantedAuthority> grantedAuthorityList;
 
-    public CustomUserDetails(User user) {
+    public CustomUserDetails(UserDatabaseModel user) {
         this.email = user.email;
         this.username = user.getUsername();
         this.password = user.getPassword();

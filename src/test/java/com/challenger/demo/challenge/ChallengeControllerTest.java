@@ -1,7 +1,7 @@
 package com.challenger.demo.challenge;
 
 import com.challenger.demo.TestMySQLContainer;
-import com.challenger.demo.challenges.Challenge;
+import com.challenger.demo.challenges.models.ChallengeDatabaseModel;
 import com.challenger.demo.challenges.ChallengeController;
 import com.challenger.demo.challenges.ChallengeService;
 import com.challenger.demo.util.ChallengeUtil;
@@ -14,7 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
@@ -43,21 +42,21 @@ public class ChallengeControllerTest {
 
     @Test
     public void testCreateChallenge() throws Exception {
-        Challenge challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        ChallengeDatabaseModel challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
 
         controller.createChallenge(challenge, errors);
 
-        List<Challenge> allChallenges = service.getChallenges();
+        List<ChallengeDatabaseModel> allChallenges = service.getChallenges();
         Assertions.assertThat(allChallenges.size()).isEqualTo(1);
         Assertions.assertThat(allChallenges.get(0).title).isEqualTo(ChallengeUtil.dummyTitle);
     }
 
     @Test
     public void testDeletingChallenge() throws Exception {
-        Challenge challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        ChallengeDatabaseModel challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
         service.addingChallenge(challenge);
 
-        List<Challenge> allChallenges = service.getChallenges();
+        List<ChallengeDatabaseModel> allChallenges = service.getChallenges();
         Assertions.assertThat(allChallenges.size()).isEqualTo(1);
         Assertions.assertThat(allChallenges.get(0).title).isEqualTo(ChallengeUtil.dummyTitle);
 

@@ -1,5 +1,6 @@
 package com.challenger.demo.challenges;
 
+import com.challenger.demo.challenges.models.ChallengeDatabaseModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -13,34 +14,34 @@ public class ChallengeService {
     @Autowired
     private ChallengeRepository challengeRepository;
 
-    public Challenge addingChallenge(@Nullable Challenge challenge) {
+    public ChallengeDatabaseModel addingChallenge(@Nullable ChallengeDatabaseModel challenge) {
         Objects.requireNonNull(challenge, String.format("Rejected incoming challenge object. Value: %s ",challenge));
         return challengeRepository.saveAndFlush(challenge);
     }
 
-    public Challenge deleteChallenge(Long id) {
-        Challenge deletedChallenge = challengeRepository.getOne(id);
+    public ChallengeDatabaseModel deleteChallenge(Long id) {
+        ChallengeDatabaseModel deletedChallenge = challengeRepository.getOne(id);
         challengeRepository.deleteById(id);
         return deletedChallenge;
     }
 
-    public Challenge updateChallenge(Challenge existingChallenge, Challenge newChallenge) {
+    public ChallengeDatabaseModel updateChallenge(ChallengeDatabaseModel existingChallenge, ChallengeDatabaseModel newChallenge) {
         BeanUtils.copyProperties(newChallenge, existingChallenge,
                 "id", "createdByUserChallenges", "assignedToUserChallenges");
         challengeRepository.save(existingChallenge);
         return existingChallenge;
     }
 
-    public List<Challenge> getChallenges() {
+    public List<ChallengeDatabaseModel> getChallenges() {
         return challengeRepository.findAll();
     }
 
-    public Challenge getChallenge(Long id) {
-        return challengeRepository.findById(id).orElse(new Challenge());
+    public ChallengeDatabaseModel getChallenge(Long id) {
+        return challengeRepository.findById(id).orElse(new ChallengeDatabaseModel());
     }
 
-    public Challenge readChallenge(Long id) {
-        return challengeRepository.findById(id).orElse(new Challenge());
+    public ChallengeDatabaseModel readChallenge(Long id) {
+        return challengeRepository.findById(id).orElse(new ChallengeDatabaseModel());
     }
 
 }
