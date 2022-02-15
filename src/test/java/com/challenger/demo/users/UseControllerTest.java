@@ -39,9 +39,6 @@ public class UseControllerTest {
     ChallengeService challengeService;
 
     @Autowired
-    ChallengeRepository repository;
-
-    @Autowired
     private MockMvc mockMvc;
 
     @Autowired

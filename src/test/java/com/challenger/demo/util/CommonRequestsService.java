@@ -30,11 +30,10 @@ public class CommonRequestsService {
 
     public ResultActions executeAuthentication(UserRequest user) throws Exception {
         AuthenticationRequest authenticationRequest = authenticationRequestUtil.createDummyAuthenticationRequest(user);
-        String jsonAuthUserBody = authenticationRequestUtil.transformRequestToJsonString(authenticationRequest);
+        String jsonAuthUserBody = authenticationRequestUtil.transformAuthenticationRequestToJsonString(authenticationRequest);
 
         return mockMvc.perform(post("/api/v1/authenticate")
                 .content(jsonAuthUserBody)
                 .contentType("application/json"));
     }
-
 }

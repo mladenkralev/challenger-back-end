@@ -1,5 +1,6 @@
 package com.challenger.demo.util;
 
+import com.challenger.demo.challenges.models.ChallengeRequest;
 import com.challenger.demo.security.controller.AuthenticationRequest;
 import com.challenger.demo.users.models.UserRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,9 +22,8 @@ public class AuthenticationRequestUtil {
                 .build();
     }
 
-    public String transformRequestToJsonString(AuthenticationRequest authenticationRequest) throws JsonProcessingException {
+    public String transformAuthenticationRequestToJsonString(AuthenticationRequest authenticationRequest) throws JsonProcessingException {
         return objectMapper.writeValueAsString(authenticationRequest);
     }
-
 
 }

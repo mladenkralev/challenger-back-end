@@ -1,9 +1,11 @@
 package com.challenger.demo.challenge;
 
 import com.challenger.demo.TestMySQLContainer;
-import com.challenger.demo.challenges.models.ChallengeDatabaseModel;
 import com.challenger.demo.challenges.ChallengeController;
 import com.challenger.demo.challenges.ChallengeService;
+import com.challenger.demo.challenges.models.ChallengeDatabaseModel;
+import com.challenger.demo.challenges.models.ChallengeRequest;
+import com.challenger.demo.challenges.models.ChallengeResponse;
 import com.challenger.demo.util.ChallengeUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,10 +16,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.Errors;
+import org.testcontainers.shaded.okhttp3.Challenge;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 
 @ActiveProfiles(profiles = {"integrationTest", "default"})
@@ -29,10 +36,10 @@ import java.util.List;
 public class ChallengeControllerTest {
 
     @Autowired
-    private ChallengeController controller;
+    ChallengeService challengeService;
 
     @Autowired
-    private ChallengeService service;
+    private MockMvc mockMvc;
 
     @Autowired
     private ChallengeUtil challengeUtil;
@@ -42,27 +49,36 @@ public class ChallengeControllerTest {
 
     @Test
     public void testCreateChallenge() throws Exception {
-        ChallengeDatabaseModel challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        ChallengeRequest challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
 
-        controller.createChallenge(challenge, errors);
+        String jsonString = challengeUtil.transformChallengeRequestToJsonString(challenge);
+        mockMvc.perform(post("/api/v1/challenges")
+                .content(jsonString)
+                .contentType("application/json"));
 
-        List<ChallengeDatabaseModel> allChallenges = service.getChallenges();
+        List<ChallengeDatabaseModel> allChallenges = challengeService.getChallenges();
         Assertions.assertThat(allChallenges.size()).isEqualTo(1);
         Assertions.assertThat(allChallenges.get(0).title).isEqualTo(ChallengeUtil.dummyTitle);
     }
 
     @Test
     public void testDeletingChallenge() throws Exception {
-        ChallengeDatabaseModel challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
-        service.addingChallenge(challenge);
+        ChallengeRequest challenge = challengeUtil.createDummyChallenge(ChallengeUtil.dummyTitle);
+        String jsonString = challengeUtil.transformChallengeRequestToJsonString(challenge);
+        mockMvc.perform(post("/api/v1/challenges")
+                .content(jsonString)
+                .contentType("application/json"));
 
-        List<ChallengeDatabaseModel> allChallenges = service.getChallenges();
+        List<ChallengeDatabaseModel> allChallenges = challengeService.getChallenges();
         Assertions.assertThat(allChallenges.size()).isEqualTo(1);
+
+        ChallengeDatabaseModel challengeDatabaseModel = allChallenges.get(0);
         Assertions.assertThat(allChallenges.get(0).title).isEqualTo(ChallengeUtil.dummyTitle);
 
-        controller.deleteChallenge(allChallenges.get(0).id);
+        mockMvc.perform(delete("/api/v1/challenges/{id}", challengeDatabaseModel.id)
+                .contentType("application/json"));
 
-        allChallenges = service.getChallenges();
+        allChallenges = challengeService.getChallenges();
         Assertions.assertThat(allChallenges.size()).isEqualTo(0);
 
     }

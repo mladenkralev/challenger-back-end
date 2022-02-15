@@ -1,5 +1,6 @@
 package com.challenger.demo.users;
 
+import com.challenger.demo.annotation.TrackExecutionTime;
 import com.challenger.demo.security.configuration.CustomUserDetails;
 import com.challenger.demo.users.models.UserDatabaseModel;
 import com.challenger.demo.users.models.UserRequest;
@@ -29,6 +30,7 @@ public class UserController {
     private UserTransformer userTransformer;
 
     @GetMapping("/users")
+    @TrackExecutionTime
     public ResponseEntity<?> getUsers() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
@@ -46,14 +48,16 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<?> createUser(@RequestBody UserRequest userViewModel) throws JsonProcessingException {
-        UserDatabaseModel userDatabaseModel = userTransformer.toDatabaseEntity(userViewModel);
+    @TrackExecutionTime
+    public ResponseEntity<?> createUser(@RequestBody UserRequest userRequest) throws JsonProcessingException {
+        UserDatabaseModel userDatabaseModel = userTransformer.toDatabaseEntity(userRequest);
         UserResponse responseViewModel = UserResponse.fromDatabaseEntity(userService.addUser(userDatabaseModel));
 
         return ResponseEntity.ok().body(responseViewModel);
     }
 
     @DeleteMapping ("/users")
+    @TrackExecutionTime
     public String deleteUser(@RequestParam UserRequest userViewModel) {
         UserDatabaseModel userDatabaseModel = userTransformer.toDatabaseEntity(userViewModel);
 
@@ -65,6 +69,7 @@ public class UserController {
 
 
     @GetMapping("/users/{userEmail}/challenges")
+    @TrackExecutionTime
     public ResponseEntity getAssignedChallenges(@PathVariable String userEmail) {
         Objects.requireNonNull(userEmail, "User path name should be available in the url.");
         userEmail = userEmail.toLowerCase();

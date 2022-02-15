@@ -46,6 +46,4 @@ public class UserDatabaseModel {
     public static UserDatabaseModel emptyEntity() {
         return  UserDatabaseModel.builder().build();
     }
-
-
 }
