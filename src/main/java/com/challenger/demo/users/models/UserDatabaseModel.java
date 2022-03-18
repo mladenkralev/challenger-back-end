@@ -42,7 +42,6 @@ public class UserDatabaseModel {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "challenge_id"))
     Set<ChallengeDatabaseModel> assignedToUserChallenges;
-
     public static UserDatabaseModel emptyEntity() {
         return  UserDatabaseModel.builder().build();
     }

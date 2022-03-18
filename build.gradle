@@ -32,7 +32,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
 
-
     implementation('org.springframework.boot:spring-boot-starter-validation')
 
     implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.0.1'
@@ -50,9 +49,6 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation "org.testcontainers:mariadb:1.16.0"
     testImplementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.5.1.RELEASE'
-
-
-
 }
 
 test {

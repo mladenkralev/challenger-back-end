@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.Errors;
 import org.testcontainers.shaded.okhttp3.Challenge;
@@ -23,6 +24,7 @@ import org.testcontainers.shaded.okhttp3.Challenge;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -80,6 +82,26 @@ public class ChallengeControllerTest {
 
         allChallenges = challengeService.getChallenges();
         Assertions.assertThat(allChallenges.size()).isEqualTo(0);
+
+    }
+
+    @Test
+    @Sql(scripts = {"/import_user.sql", "/import_challenges_to_user.sql"})
+    public void testCompletingChallenge() throws Exception {
+
+        List<ChallengeDatabaseModel> allChallenges = challengeService.getChallenges();
+        Assertions.assertThat(allChallenges.size()).isEqualTo(2);
+
+        ChallengeDatabaseModel challengeDatabaseModel = allChallenges.get(0);
+        long daysBetween = DAYS.between(challengeDatabaseModel.startDate, challengeDatabaseModel.endDate);
+
+        for(int index=0; index < daysBetween; index++) {
+            mockMvc.perform(post("/api/v1/challenges/{id}/progress", challengeDatabaseModel.id)
+                    .contentType("application/json"));
+        }
+
+        ChallengeDatabaseModel completedChallenge = challengeService.getChallenges().get(0);
+        Assertions.assertThat(completedChallenge.numberOfProgressHits).isEqualTo(100);
 
     }
 

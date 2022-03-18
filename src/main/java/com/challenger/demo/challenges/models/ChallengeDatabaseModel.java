@@ -42,6 +42,8 @@ public class ChallengeDatabaseModel {
     public LocalDate startDate;
     public LocalDate endDate;
 
+    public double numberOfProgressHits;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "createdByUserChallenges")
     Set<UserDatabaseModel> createdByUserChallenges;

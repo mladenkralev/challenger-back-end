@@ -49,4 +49,11 @@ public class ChallengeController {
     public ChallengeResponse deleteChallenge(@PathVariable Long id) {
         return challengeTransformer.toResponse(challengeService.deleteChallenge(id));
     }
+
+    @PostMapping("/challenges/{id}/progress")
+    @TrackExecutionTime
+    public ChallengeResponse increaseProgress(@PathVariable Long id) {
+        ChallengeDatabaseModel challenge = challengeService.increaseChallengeProgress(id);
+        return challengeTransformer.toResponse(challenge);
+    }
 }

@@ -1,5 +1,5 @@
-INSERT INTO `challenges` (`id`, `description`, `end_date`, `occurrences`, `start_date`, `title`) VALUES ('1', 'Read a book every week!', '2022-01-31 00:00:00.000000', 'DAY', '2022-01-05 00:00:00.000000', 'Knowledge is power!');
-INSERT INTO `challenges` (`id`, `description`, `end_date`, `occurrences`, `start_date`, `title`) VALUES ('2', 'Train every day for at least 20 minutes', '2022-01-31 00:00:00.000000', 'DAY', '2022-01-05 00:00:00.000000', 'You are a MACHINE!');
+INSERT INTO `challenges` (`id`, `description`, `end_date`, `occurrences`, `start_date`, `title`, `number_of_progress_hits`) VALUES ('1', 'Read a book every week!', '2022-01-31 00:00:00.000000', 'DAY', '2022-01-05 00:00:00.000000', 'Knowledge is power!', '0.0');
+INSERT INTO `challenges` (`id`, `description`, `end_date`, `occurrences`, `start_date`, `title`, `number_of_progress_hits`) VALUES ('2', 'Train every day for at least 20 minutes', '2022-01-31 00:00:00.000000', 'DAY', '2022-01-05 00:00:00.000000', 'You are a MACHINE!', '0.0');
 
 INSERT INTO `assigned_to_user_challenges` (`user_id`, `challenge_id`) VALUES ('0', '1');
 INSERT INTO `assigned_to_user_challenges` (`user_id`, `challenge_id`) VALUES ('0', '2');
