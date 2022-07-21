@@ -30,6 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/swagger-ui/**",
             "/webjars/**",
             "/api/v1/authenticate",
+            "/api/v1/blobs",
+            "/api/v1/blobs/*",
             "/api/v1/users"
     };
 

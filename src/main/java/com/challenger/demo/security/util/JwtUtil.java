@@ -15,7 +15,7 @@ import java.util.function.Function;
 @Profile(value = {"prd"})
 @Component
 public class JwtUtil {
-    private String SECRET_KEY = "secret";
+    private final String SECRET_KEY = "secret";
 
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);

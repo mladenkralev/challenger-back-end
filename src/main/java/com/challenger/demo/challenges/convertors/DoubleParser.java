@@ -1,4 +1,4 @@
-package com.challenger.demo.challenges;
+package com.challenger.demo.challenges.convertors;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
